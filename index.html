@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Wife</title>
+<style>
+    body {
+        margin: 0;
+        font-family: 'Segoe UI', Tahoma, sans-serif;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fbc2eb);
+        overflow-x: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    .container {
+        text-align: center;
+        color: #fff;
+        width: 100%;
+        max-width: 420px;
+    }
+
+    h1 {
+        font-size: clamp(1.8rem, 5vw, 2.4rem);
+        margin-bottom: 25px;
+        line-height: 1.2;
+    }
+
+    .buttons {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .btn {
+        width: 130px;
+        height: 130px;
+        border-radius: 22px;
+        background: rgba(255, 255, 255, 0.28);
+        backdrop-filter: blur(10px);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        touch-action: manipulation;
+    }
+
+    .btn:active {
+        transform: scale(0.96);
+    }
+
+    .btn span {
+        margin-top: 8px;
+        font-size: 1rem;
+        font-weight: 600;
+    }
+
+    .icon {
+        font-size: 2.6rem;
+    }
+
+    .modal {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.55);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
+        padding: 15px;
+    }
+
+    .modal-content {
+        background: #fff;
+        color: #444;
+        padding: 22px 20px 26px;
+        border-radius: 22px;
+        max-width: 500px;
+        width: 100%;
+        max-height: 85vh;
+        overflow-y: auto;
+        position: relative;
+        animation: pop 0.35s ease;
+    }
+
+    @keyframes pop {
+        from { transform: scale(0.85); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
+    }
+
+    .close {
+        position: absolute;
+        top: 12px;
+        right: 16px;
+        font-size: 1.4rem;
+        cursor: pointer;
+    }
+
+    h2 {
+        font-size: 1.4rem;
+        margin-bottom: 12px;
+        text-align: center;
+    }
+
+    p {
+        font-size: 1rem;
+        line-height: 1.6;
+        text-align: center;
+        white-space: pre-wrap;
+    }
+
+    .gallery {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        margin-top: 15px;
+    }
+
+    .gallery img {
+        width: 100%;
+        height: 140px;
+        object-fit: cover;
+        border-radius: 14px;
+    }
+
+    @media (min-width: 480px) {
+        .gallery {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    .heart, .flower {
+        position: absolute;
+        animation: float 8s linear infinite;
+        opacity: 0.75;
+        pointer-events: none;
+    }
+
+    .heart { color: #ff4d6d; font-size: 26px; text-shadow: 0 0 10px #ff4d6d, 0 0 20px #ff758f; }
+    .flower { color: #ffafcc; font-size: 22px; }
+
+    @keyframes float {
+        from { transform: translateY(110vh); }
+        to { transform: translateY(-140px); }
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>For My Beautiful Neliufar</h1>
+    <div class="buttons">
+        <div class="btn" onclick="openMail()">
+            <div class="icon">💌</div>
+            <span>Mail</span>
+        </div>
+        <div class="btn" onclick="openGallery()">
+            <div class="icon">🖼️</div>
+            <span>Gallery</span>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="mailModal">
+    <div class="modal-content">
+        <div class="close" onclick="closeModal('mailModal')">✖</div>
+        <h2>My Apology 💖</h2>
+        <p id="apologyText" data-text="Hey my beautiful baby,
+
+I am sorry ki I always make you sad. I really don’t mean ki make you sad, upset, or mad, like for real.
+I am really sorry that I hurt you and make you upset. Sorry that I ruin your day.
+Sorry that I made you feel like you are not my first priority.
+
+You know you are my first priority.
+I am sorry again.
+
+And I LOVE YOU soooooooooo much <3">
+        </p>
+    </div>
+</div>
+
+<div class="modal" id="galleryModal">
+    <div class="modal-content">
+        <div class="close" onclick="closeModal('galleryModal')">✖</div>
+        <h2>Our Memories</h2>
+        <div class="gallery">
+            <!-- Replace src values with your own image paths -->
+            <img src="img1.jpg" alt="">
+            <img src="img2.jpg" alt="">
+            <img src="img3.jpg" alt="">
+            <img src="img4.jpg" alt="">
+        </div>
+    </div>
+</div>
+
+<audio id="bgMusic" loop playsinline preload="auto">
+    <!-- IMPORTANT: Put your music file in the SAME folder and name it exactly song.mp3 -->
+    <source src="song.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
+
+<script>
+    function openMail() {
+        document.getElementById('mailModal').style.display = 'flex';
+        startTyping();
+        playMusic();
+    }
+
+    function openGallery() {
+        document.getElementById('galleryModal').style.display = 'flex';
+        playMusic();
+    }
+
+    function closeModal(id) {
+        document.getElementById(id).style.display = 'none';
+    }
+
+    function playMusic() {
+        const music = document.getElementById('bgMusic');
+        if (music.paused) {
+            music.volume = 0.4;
+            music.play();
+        }
+    }
+
+    function startTyping() {
+        const el = document.getElementById('apologyText');
+        const text = el.getAttribute('data-text');
+        el.textContent = '';
+        let i = 0;
+        const typing = setInterval(() => {
+            el.textContent += text.charAt(i);
+            i++;
+            if (i >= text.length) clearInterval(typing);
+        }, 35);
+    }
+
+    function createFloatingIcons() {
+        setInterval(() => {
+            const span = document.createElement('span');
+            const isHeart = Math.random() > 0.5;
+            span.className = isHeart ? 'heart' : 'flower';
+            span.textContent = isHeart ? '❤' : '🌸';
+            span.style.left = Math.random() * 100 + 'vw';
+            span.style.animationDuration = (5 + Math.random() * 5) + 's';
+            document.body.appendChild(span);
+            setTimeout(() => span.remove(), 10000);
+        }, 500);
+    }
+
+    createFloatingIcons();
+</script>
+
+</body>
+</html>
